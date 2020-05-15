@@ -165,7 +165,10 @@ class _EssentialServiceState extends State<EssentialService> {
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  onPressed: () {},
+                  onPressed: () {
+                    disabled ? null : Navigator.pushNamed(
+                        context, '/essentialservicebooking');
+                  },
                   color: disabled
                       ? const Color(0xffffd4d9)
                       : const Color(0xfff45b69),

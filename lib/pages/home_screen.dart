@@ -10,11 +10,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List todayBooking = [
     ['Lot 1 shopper\'s Mall NTUC', '2.30-3.30PM']
   ];
+  final colorList = [0xffa2b4c7, 0xffffd4d9, 0xffffd4d9];
   Image bgImage;
   bool today = true;
+  int counter = 0;
   bool checkIn = false;
-  bool checkOut = false;
-  String buttonText = "1 hour till \n check in";
 
   @override
   void initState() {
@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       width: 500,
       fit: BoxFit.fill,
     );
+    counter = 0;
     super.initState();
   }
 
@@ -31,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     precacheImage(bgImage.image, context);
+    counter = 0;
   }
 
   void _stateChange() {
@@ -40,11 +42,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _checkInOutState() {
-    setState(() {});
-  }
-
-  Widget _todayList(BuildContext context) {
-    return ListView();
+    setState(() {
+      if (counter < 2) {
+        counter++;
+        if (counter == 1) {
+          checkIn = true;
+        } else {
+          checkIn = false;
+        }
+      } else {
+        counter = 0;
+      }
+    });
   }
 
   @override
@@ -86,13 +95,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 150,
                           fit: BoxFit.fitHeight,
                         ),
-                      )),
+                      )
+                  ),
                   Container(
                       padding: EdgeInsets.only(top: 108),
                       child: FlatButton(
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         onPressed: () {
-                          print("Clicked.");
+                          Navigator.pushNamed(context, "/factcheck");
                         },
                         child: Image(
                           image:
@@ -149,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           today ? _stateChange() : null;
                           print(today);
                         },
-                        child: Text("Future",
+                        child: Text("Upcoming",
                             style: today
                                 ? TextStyle(
                                     fontFamily: 'Calibri',
@@ -205,7 +215,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: FlatButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/managebooking");
+                            },
                             color: const Color(0xfff45b69),
                             padding: EdgeInsets.symmetric(
                                 vertical: 5, horizontal: 30),
@@ -225,19 +237,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(10)),
                             onPressed: () {
                               _checkInOutState();
-                              print(checkIn);
-                              print(checkOut);
+                              print(counter);
+                              checkIn ? null : Navigator.pushNamed(
+                                  context, "/cfmcheckin");
                             },
-                            color: const Color(0xffa2b4c7),
+                            color: new Color(colorList[counter]),
                             padding: EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 30),
-                            child: Text(
-                              "$buttonText",
-                              style: TextStyle(
-                                  fontFamily: 'Calibri',
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700),
+                            child: Column(
+                              children: <Widget>[
+                                if (counter == 0)
+                                  Text(
+                                    "1 hour till \n check in",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontFamily: 'Calibri',
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                if (counter == 1)
+                                  Text(
+                                      "Check in \nnow",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Calibri',
+                                          color: const Color(0xfff45b69),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700)
+                                  ),
+                                if (counter == 2)
+                                  Text(
+                                      "Check out \nnow",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Calibri',
+                                          color: const Color(0xfff45b69),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w700)
+                                  ),
+                              ],
                             ),
                           ),
                         ),

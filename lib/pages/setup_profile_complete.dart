@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SignUpComplete extends StatelessWidget {
+class SetupProfileComplete extends StatefulWidget {
+  @override
+  _SetupProfileCompleteState createState() => _SetupProfileCompleteState();
+}
+
+class _SetupProfileCompleteState extends State<SetupProfileComplete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +25,7 @@ class SignUpComplete extends StatelessWidget {
           ),
           Container(
             child: Text(
-              "Sign up complete!",
+              "Setup Profile 100% complete!",
               style: TextStyle(
                   fontFamily: 'Calibri',
                   color: const Color(0xfff45b69),
@@ -35,11 +40,12 @@ class SignUpComplete extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
               onPressed: () {
-                Navigator.pushNamed(context, '/setupprofile1');
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/startscreen', (route) => false);
               },
               color: const Color(0xfff45b69),
               child: Text(
-                "Set up profile",
+                "Go to log in",
                 style: TextStyle(
                     fontFamily: 'Calibri',
                     color: Colors.white,
