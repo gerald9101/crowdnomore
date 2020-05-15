@@ -5,6 +5,10 @@ class StartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     precacheImage(AssetImage('assets/images/start_screen.png'), context);
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Calibri',
+        buttonColor: const Color(0xfff45b69),
+      ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Stack(
@@ -27,7 +31,7 @@ class StartScreen extends StatelessWidget {
                       },
                       color: const Color(0xff114b5f),
                       padding:
-                          EdgeInsets.symmetric(vertical: 13, horizontal: 60),
+                      EdgeInsets.symmetric(vertical: 13, horizontal: 60),
                       child: Text(
                         "Sign up",
                         style: TextStyle(
@@ -46,7 +50,7 @@ class StartScreen extends StatelessWidget {
                       },
                       color: const Color(0xfff45b69),
                       padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 66),
+                      EdgeInsets.symmetric(vertical: 10, horizontal: 66),
                       child: Text(
                         "Log In",
                         style: TextStyle(

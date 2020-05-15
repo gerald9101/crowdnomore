@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: FlatButton(
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         onPressed: () {
-                          print("Clicked.");
+                          Navigator.pushNamed(context, "/qrscan");
                         },
                         child: Image(
                           image: AssetImage('assets/images/scan_qr_icon.png'),
